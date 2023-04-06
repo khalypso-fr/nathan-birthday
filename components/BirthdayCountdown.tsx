@@ -21,6 +21,7 @@ const useCountdown = (until: DateTime) => {
         "days",
         "hours",
         "minutes",
+        "seconds",
       ]),
     [comparisonDate, until]
   );
