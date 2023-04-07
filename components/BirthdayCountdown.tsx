@@ -32,7 +32,7 @@ const NathanBirthday = DateTime.fromObject({
   month: 5,
   day: 6,
   hour: 12,
-  minute: 50,
+  minute: 56,
 });
 
 export const BirthdayCountdown = () => {
