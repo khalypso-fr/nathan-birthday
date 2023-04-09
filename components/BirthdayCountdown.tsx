@@ -9,22 +9,14 @@ const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
 const useCountdown = (until: DateTime) => {
   const [comparisonDate, setComparisonDate] = useState(DateTime.now());
   useEffect(() => {
-    const id = setInterval(
-      () => setComparisonDate(DateTime.now()),
-      Duration.fromObject({ second: 1 }).toMillis()
-    );
+    const id = setInterval(() => setComparisonDate(DateTime.now()), 1000);
     return () => clearInterval(id);
   }, []);
-  return useMemo(
-    () =>
-      Interval.fromDateTimes(comparisonDate, until).toDuration([
-        "days",
-        "hours",
-        "minutes",
-        "seconds",
-      ]),
-    [comparisonDate, until]
-  );
+  return Interval.fromDateTimes(comparisonDate, until).toDuration([
+    "days",
+    "hours",
+    "minutes",
+  ]);
 };
 
 const NathanBirthday = DateTime.fromObject({
@@ -50,7 +42,10 @@ export const BirthdayCountdown = () => {
 };
 
 const useUnit = (unit: number): [string, string] => {
-  const paddedUnit = unit.toString().padStart(2, "0");
+  const paddedUnit = useMemo(
+    () => Math.ceil(unit).toString().padStart(2, "0"),
+    [unit]
+  );
   const unit1 = paddedUnit[0];
   const unit2 = paddedUnit[1];
   return [unit1, unit2];
